@@ -14,6 +14,13 @@ public  class ProductoMedible extends Producto {
       
     }
 
+    public ProductoMedible(String nombre, String unidad,double precioKilo, double masa, double precio){
+        super(nombre,unidad,precio);
+        this.masa = masa;
+        this.precioKilo = precioKilo;
+      
+    }
+
     public double getMasa(){
         return this.masa;
     }   
@@ -36,6 +43,8 @@ public  class ProductoMedible extends Producto {
     public String toString(){
         return unidad +"" + nombre + " Precio kilo(kg): " + precioKilo + "Peso:(g) "+masa+ " Precio(euros): "+precio()+" "+ fechaCaducidad;
     }
+
+
 
 
 

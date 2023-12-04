@@ -186,7 +186,37 @@ public class Interfaz {
     }
 }
 
+//Hacer la estructura de añadir productos usando if. Esto para poder mejorar la interfaz y que sea mas facil de usar. Tambien recordar lentejas y arroz ya que no se vencen. Falta crear otro metodo de productos no perecibles pero medibles
+/*añadirProducto(){
+    
+    While(peticion != "exit"){
 
+        System.out.println("¿Su producto tiene fecha de caducidad?");
+         String peticion = sc.nextLine();
+        if(peticion.equalsIgnoreCase("si")){
+            
+            System.out.println("¿Su producto es medible?");
+            peticion = sc.nextLine();
+            if(peiticion.equalsIgnoreCase("si")){
+                anadirProductoM();
+                return true;
+            }else{
+                anadirProductoP()
+                return true;
+            }
+   
+        }else{
+            System.out.println("¿Su producto es medible?");
+            peticion = sc.nextLine();
+            if(peticion.equalsIgnoreCase("si")){
+                anadirProductoS();
+                return true;
+            }else{
+                anadirPrrodutoNP();
+                return true;
+
+   
+    */
 
 
 
