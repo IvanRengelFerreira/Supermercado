@@ -33,18 +33,60 @@ public class Interfaz {
         }
     }
 
-    public void anadirProductoS() {
+    public boolean añadirProducto(){
+    System.out.println("Bienvenido al menu de añadir productos. En este apartado podra añadir productos a las distintas secciones del supermercado. \n Se le haran preguntas segun las caracteristicas de tu producto. \n Si necesita ayuda en cualquier momento escriba 'help'");
+    System.out.println("Desea añadir un producto? (si/no))");
+    String peticion = sc.nextLine();
+    if (peticion.equalsIgnoreCase("si")) {
+        System.out.println("¿Su producto tiene fecha de caducidad?");
+        peticion = sc.nextLine();
+        if (peticion.equalsIgnoreCase("si")) {
+            System.out.println("¿Su producto es medible?");
+            peticion = sc.nextLine();
+            if (peticion.equalsIgnoreCase("si")) {
+                anadirProductoM();
+                return true;
+            } else {
+                anadirProductoP();
+                return true;
+            }
+        } else if (peticion.equalsIgnoreCase("no")) {
+             System.out.println("¿Su producto es medible?");
+            peticion = sc.nextLine();
+            if (peticion.equalsIgnoreCase("si")) {
+                anadirProducNoP();
+                return true;
+            } else {
+                anadirProductoSimp();
+                return true;
+            }
+        
+        } 
+           
+    } else if (peticion.equalsIgnoreCase("no")) {
+         return false;
+    } else {
+        System.out.println("Peticion erronea");
+        return true;     
+        
+    }
+
+    return true;
+}
+
+    public void anadirProductoSimp() {
         Secciones seccion = seleccionarSecciones();
 
-        System.out.println("Nombre del articulo");
+        System.out.println("Nombre del Producto");
         String nombre = sc.nextLine();
-        System.out.println("Precio del articulo");
+        System.out.println("Precio por unidad del Producto");
         double precio = sc.nextDouble();
         sc.nextLine(); // consume newline
-        System.out.println("Cantidad del articulo");
-        String unidad = sc.nextLine();
+        System.out.println("Cantidad del Producto");
+        int unidad = sc.nextInt();
+        sc.nextLine(); // consume newline
       
-        Producto a = new ProductoSimple(nombre, unidad, precio);
+        Producto a = new ProductoSimple(nombre, unidad,precio );
         seccion.addProducto(a);
     }
 
@@ -59,7 +101,8 @@ public class Interfaz {
         sc.nextLine(); // consume newline
 
         System.out.println("Cantidad del Producto");
-        String unidad = sc.nextLine();
+        int unidad = sc.nextInt();
+        sc.nextLine(); // consume newline
 
         System.out.println("Masa del Producto (use un punto para decimales)");
         double masa = sc.nextDouble();
@@ -76,36 +119,61 @@ public class Interfaz {
 
         LocalDate fechaCaducidad = LocalDate.of(ano, mes, dia);
             
-        Producto a = new ProductoMedible(nombre, unidad, precio, masa, fechaCaducidad,0);
+        Producto a = new ProductoMedible(nombre, unidad, precio, masa, fechaCaducidad);
         seccion.addProducto(a);
     }
     
-    public void anadirProductoP() {
+    public void anadirProducNoP() {
         Secciones seccion = seleccionarSecciones();
-        System.out.println("Nombre del articulo");
+        System.out.println("Nombre del Producto");
         String nombre = sc.nextLine();
 
-        System.out.println("Precio del articulo");
-        double precio = sc.nextDouble();
+        System.out.println("Precio por kilo del Producto");
+        double precioKilo = sc.nextDouble();
         sc.nextLine(); // consume newline
 
-        System.out.println("Cantidad del articulo");
-        String unidad = sc.nextLine();
+        System.out.println("Cantidad del Producto");
+        int unidad = sc.nextInt();
+        sc.nextLine(); // consume newline
     
-        System.out.println("Fecha de caducidad");
-
-        System.out.println("Año:");
-        String ano = sc.nextLine();
-        System.out.println("Mes:");
-        String mes = sc.nextLine();
-        System.out.println("Dia:");
-        String dia = sc.nextLine();
+        System.out.println("Masa del Producto (use un punto para decimales)");
+        int masa = sc.nextInt();
+        sc.nextLine(); // consume newline
     
-        LocalDate fechaCaducidad = LocalDate.of(Integer.parseInt(ano), Integer.parseInt(mes), Integer.parseInt(dia));
-        Producto a = new ProductoPerecedero(nombre, unidad, precio, fechaCaducidad);
+        Producto a = new ProductoMedible(nombre, unidad, precioKilo,masa );
         seccion.addProducto(a);
     }
 
+    public void anadirProductoP() {
+
+
+        Secciones seccion = seleccionarSecciones();
+        System.out.println("Nombre del Producto");
+        String nombre = sc.nextLine();
+
+        System.out.println("Precio por unidad del Producto");
+        int precioUnidad = sc.nextInt();
+        sc.nextLine(); // consume newline
+        
+        System.out.println("Cantidad del Producto");
+        int unidad = sc.nextInt();
+        sc.nextLine(); // consume newline
+
+        System.out.println("Fecha de caducidad");
+        System.out.println("Año:");
+        int ano = sc.nextInt();
+        System.out.println("Mes:");
+        int mes = sc.nextInt();
+        System.out.println("Dia:");
+        int dia = sc.nextInt();
+        sc.nextLine(); // consume newline
+
+        LocalDate fechaCaducidad = LocalDate.of(ano, mes, dia);
+
+        Producto a = new ProductoSimple(nombre, unidad, precioUnidad,fechaCaducidad);
+        seccion.addProducto(a);
+    }
+    
     public void anadirSecciones() {
         System.out.println("Nombre de la Seccion");
         String nombre = sc.nextLine();
@@ -123,7 +191,7 @@ public class Interfaz {
             } else if (p[0].equalsIgnoreCase("2")) {
                 anadirProductoM();
             } else if (p[0].equalsIgnoreCase("3")) {
-                anadirProductoS();
+                anadirProductoSimp();
             } else if (p[0].equalsIgnoreCase("4")) {
                 anadirProductoP();
             } else if (p[0].equalsIgnoreCase("5")) {
@@ -186,41 +254,4 @@ public class Interfaz {
     }
 }
 
-//Hacer la estructura de añadir productos usando if. Esto para poder mejorar la interfaz y que sea mas facil de usar. Tambien recordar lentejas y arroz ya que no se vencen. Falta crear otro metodo de productos no perecibles pero medibles
-/*añadirProducto(){
-    
-    While(peticion != "exit"){
-
-        System.out.println("¿Su producto tiene fecha de caducidad?");
-         String peticion = sc.nextLine();
-        if(peticion.equalsIgnoreCase("si")){
-            
-            System.out.println("¿Su producto es medible?");
-            peticion = sc.nextLine();
-            if(peiticion.equalsIgnoreCase("si")){
-                anadirProductoM();
-                return true;
-            }else{
-                anadirProductoP()
-                return true;
-            }
-   
-        }else{
-            System.out.println("¿Su producto es medible?");
-            peticion = sc.nextLine();
-            if(peticion.equalsIgnoreCase("si")){
-                anadirProductoS();
-                return true;
-            }else{
-                anadirPrrodutoNP();
-                return true;
-
-   
-    */
-
-
-
-   
-
-    
 

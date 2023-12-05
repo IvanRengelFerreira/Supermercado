@@ -6,20 +6,25 @@ public  class ProductoMedible extends Producto {
     private double masa;
     private double precio;
     private double precioKilo;
+    private LocalDate fechaCaducidad;
 
-    public ProductoMedible(String nombre, String unidad,double precioKilo, double masa, LocalDate fechaCaducidad, double precio){
-        super(nombre,unidad,precio,fechaCaducidad);
+    // Constructor para la clase ProductoMedible con fecha de caducidad, para crear productos que son medibles y con fecha de caducidad
+    public ProductoMedible(String nombre, int unidad,double precioKilo, double masa, LocalDate fechaCaducidad){
+        super(nombre,unidad);
+        this.masa = masa;
+        this.precioKilo = precioKilo;
+        this.fechaCaducidad = fechaCaducidad;
+      
+    }
+
+    // Constructor para la clase ProductoMedible sin fecha de caducidad, para crear productos que son medibles pero sin fecha de caducidad
+    public ProductoMedible(String nombre, int unidad,double precioKilo, double masa){
+        super(nombre,unidad);
         this.masa = masa;
         this.precioKilo = precioKilo;
       
     }
 
-    public ProductoMedible(String nombre, String unidad,double precioKilo, double masa, double precio){
-        super(nombre,unidad,precio);
-        this.masa = masa;
-        this.precioKilo = precioKilo;
-      
-    }
 
     public double getMasa(){
         return this.masa;
@@ -34,7 +39,6 @@ public  class ProductoMedible extends Producto {
         this.masa = masa;
     }   
 
-    
     public double precio(){
         precio = precioKilo * masa;	
         return precio;
@@ -43,6 +47,15 @@ public  class ProductoMedible extends Producto {
     public String toString(){
         return unidad +"" + nombre + " Precio kilo(kg): " + precioKilo + "Peso:(g) "+masa+ " Precio(euros): "+precio()+" "+ fechaCaducidad;
     }
+
+    public void setFechaCaducidad(LocalDate fechaCaducidad){
+        this.fechaCaducidad = fechaCaducidad;
+    }
+
+    public LocalDate getFechaCaducidad(){
+        return this.fechaCaducidad;
+    }
+
 
 
 

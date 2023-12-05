@@ -1,55 +1,33 @@
 package dominio;
-import java.time.LocalDate;
 
 public abstract class Producto {
     protected String nombre;
-    protected String unidad;
-    protected double precio;
-    protected LocalDate fechaCaducidad;
-
-    public Producto(String nombre, String unidad,double precio, LocalDate fechaCaducidad2){
+    protected int unidad;
+    
+    public Producto(String nombre, int unidad){
         this.nombre = nombre;
         this.unidad = unidad;
-        this.precio = precio;
-        this.fechaCaducidad = fechaCaducidad2;
-    }
-
-    public Producto(String nombre, String unidad,double precio){
-        this.nombre = nombre;
-        this.unidad = unidad;
-        this.precio = precio;
+       
     }
 
     public String getNombre(){
         return this.nombre;
     }
 
-    public String getUnidad(){
+    public int getUnidad(){
         return this.unidad;
     }
 
-    public double getPrecio(){
-        return this.precio;
-    }
-
+  
+   
     public void setNombre(String nombre){
         this.nombre = nombre;
     }
 
-    public void setUnidad(String unidad){
+    public void setUnidad(int unidad){
         this.unidad = unidad;
     }
 
-    public void setPrecio(double precio){
-        this.precio = precio;
-    }
-
-    public void setFechaCaducidad(LocalDate fechaCaducidad){
-        this.fechaCaducidad = fechaCaducidad;
-    }
-
-    public LocalDate getFechaCaducidad(){
-        return this.fechaCaducidad;
-    }
-
+    public abstract double precio();
+   
 }
