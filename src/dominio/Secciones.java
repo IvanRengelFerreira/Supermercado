@@ -55,6 +55,26 @@ public class Secciones {
             }
             return result;
         }
+
+        public boolean equals(Object o){
+            Secciones s = (Secciones)o;
+            return nombre.equals(s.nombre);
+        }
+
+        public Producto buscarProducto(String nombre) {
+            for (Producto p : productos) {
+                if (p.getNombre().equalsIgnoreCase(nombre)) {
+                    return p;
+                }
+            }
+            return null; 
+        }
+
+            
+
+            
+
+
     }
 
       

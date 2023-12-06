@@ -16,24 +16,51 @@ public class Interfaz {
     private Scanner sc = new Scanner(System.in);
 
     public Secciones seleccionarSecciones() {
-        for (int i = 0; i < superMercado.size(); i++) {
-            System.out.println((i + 1) + ". " + superMercado.getSecciones(i));
-        }
-        System.out.println("Seleccione una seccion (número): ");
-        int eleccion = sc.nextInt() - 1;
-        sc.nextLine(); 
-        
-           
-        
-        if (eleccion >= 0 && eleccion < superMercado.size()) {
-            return superMercado.getSecciones(eleccion);
-        } else {
-            System.out.println("Selección inválida");
-            return null;
-        }
-    }
+     
+        Secciones seccion = null;
+         boolean salir = true;
+         while( salir == true) {
+             try {
+            for (int i = 0; i < superMercado.size(); i++) {
+                System.out.println((i + 1) + ". " + superMercado.getSecciones(i));
+            }
+            System.out.println("Seleccione una seccion (número): ");
+            int eleccion = sc.nextInt() - 1;
+            sc.nextLine(); 
 
-    public boolean añadirProducto(){
+            if (eleccion >= 0 && eleccion < superMercado.size()) {
+               seccion = superMercado.getSecciones(eleccion);
+               salir = false;
+                
+            } else {
+                System.out.println("Selección inválida");
+                
+            }
+        } catch (Exception e) {
+            System.out.println("Error al seleccionar seccion");
+            sc.nextLine();
+          } 
+        } 
+          return seccion;
+        }
+
+    public boolean anadirProducto(){
+    if (superMercado.size() == 0) {
+        System.out.println("No hay secciones disponibles");
+        System.out.println("¿Desea añadir una seccion? (si/no)");
+        String peticion = sc.nextLine();
+        if (peticion.equalsIgnoreCase("si")) {
+            anadirSecciones();
+            return true;
+        } else if (peticion.equalsIgnoreCase("no")) {
+            return false;
+        } else {
+            System.out.println("Peticion erronea");
+            return true;
+        }
+        
+    
+    }else if (superMercado.size() != 0)  {
     System.out.println("Bienvenido al menu de añadir productos. En este apartado podra añadir productos a las distintas secciones del supermercado. \n Se le haran preguntas segun las caracteristicas de tu producto. \n Si necesita ayuda en cualquier momento escriba 'help'");
     System.out.println("Desea añadir un producto? (si/no))");
     String peticion = sc.nextLine();
@@ -45,32 +72,32 @@ public class Interfaz {
             peticion = sc.nextLine();
             if (peticion.equalsIgnoreCase("si")) {
                 anadirProductoM();
-                return true;
             } else {
                 anadirProductoP();
-                return true;
             }
         } else if (peticion.equalsIgnoreCase("no")) {
              System.out.println("¿Su producto es medible?");
             peticion = sc.nextLine();
             if (peticion.equalsIgnoreCase("si")) {
                 anadirProducNoP();
-                return true;
-            } else {
+            } else if (peticion.equalsIgnoreCase("no")) {
                 anadirProductoSimp();
-                return true;
+            }else {
+               System.out.println("Peticion erronea");
+               return true;
             }
         
-        } 
-           
+        } else {
+            System.out.println("Peticion erronea");
+            return true;
+        }
     } else if (peticion.equalsIgnoreCase("no")) {
          return false;
     } else {
         System.out.println("Peticion erronea");
         return true;     
-        
     }
-
+    }
     return true;
 }
 
@@ -137,10 +164,10 @@ public class Interfaz {
         sc.nextLine(); // consume newline
     
         System.out.println("Masa del Producto (use un punto para decimales)");
-        int masa = sc.nextInt();
+        double masa = sc.nextDouble();
         sc.nextLine(); // consume newline
     
-        Producto a = new ProductoMedible(nombre, unidad, precioKilo,masa );
+        Producto a = new ProductoMedible(nombre, unidad, precioKilo,masa);
         seccion.addProducto(a);
     }
 
@@ -181,6 +208,7 @@ public class Interfaz {
         superMercado.addSeccion(s);
     }
 
+    
     public boolean procesarPeticion(String peticion) {
         String[] p = peticion.trim().split("\\s+");
 
@@ -189,23 +217,15 @@ public class Interfaz {
             if (p[0].equalsIgnoreCase("1")) {
                 anadirSecciones();
             } else if (p[0].equalsIgnoreCase("2")) {
-                anadirProductoM();
-            } else if (p[0].equalsIgnoreCase("3")) {
-                anadirProductoSimp();
-            } else if (p[0].equalsIgnoreCase("4")) {
-                anadirProductoP();
-            } else if (p[0].equalsIgnoreCase("5")) {
+                anadirProducto();
+            }else if (p[0].equalsIgnoreCase("3")) {
                 mostrarSecciones();
-            } else if (p[0].equalsIgnoreCase("help")) {
-                System.out.println("Menu\n1. Añadir Secciones\n2. Añadir Producto Medible\n3. Añadir Producto Simple\n4. Añadir Producto Perecedero\n5. Mostrar Secciones\nPara salir de la interfaz escriba 'exit'\nSi necesita ayuda en cualquier momento escriba 'help'\nSi necesita ayuda al añadir un producto escriba 'help' + 'numero de la opcion'");
-            } else if (p[0].equalsIgnoreCase("help+1")) {
-                System.out.println("Las secciones son los distintos pasillos de un supermercado, por ejemplo, fruteria, carniceria, etc.\nEstas solo tendran un nombre que tendras que introducir.\nPara añadir una seccion escriba '1' y siga las instrucciones");
-            } else if (p[0].equalsIgnoreCase("help+2")) {
-                System.out.println("Los productos medibles son aquellos que se venden por peso, por ejemplo, carne, fruta, etc.\nEstos tendran un nombre, un precio por kilo, una masa y una fecha de caducidad.\nCabe recalcar que en esta opcion no se deberia introducir el precio.\nPara añadir un producto medible escriba '2' y siga las instrucciones");
-            } else if (p[0].equalsIgnoreCase("help+3")) {
-                System.out.println("Los productos simples son aquellos que se venden por unidad, por ejemplo, un paquete de galletas, un bote de champu, etc.\nEstos tendran un nombre, un precio y una cantidad.\nPara añadir un producto simple escriba '3' y siga las instrucciones");
-            } else if (p[0].equalsIgnoreCase("help+4")) {
-                System.out.println("Los productos perecederos son aquellos que tienen una fecha de caducidad, por ejemplo, un yogur, leche, etc.\nEstos tendran un nombre, un precio, una cantidad y una fecha de caducidad.\nPara añadir un producto perecedero escriba '4' y siga las instrucciones");
+            } else if (p[0].equalsIgnoreCase("4")) {
+                borrarSeccion();
+            }else if (p[0].equalsIgnoreCase("5")) {
+                borrarProducto();
+            }else if (p[0].equalsIgnoreCase("help")) {
+                System.out.println("Menu\n1. Añadir Secciones\n2. Añadir Producto\n3. Mostrar Secciones\n4.Borrar seccion \n5.Borrar producto \nPara salir de la interfaz escriba 'exit'\nSi necesita ayuda en cualquier momento escriba 'help'");
             } else if (p[0].equalsIgnoreCase("exit")) {
                 grabar();
                 return false;
@@ -240,7 +260,7 @@ public class Interfaz {
         String cadena = sc.nextLine();
         return cadena;
     }
-
+ 
     public void grabar() {
         File f = new File("SuperMercado.txt");
         try {
@@ -252,6 +272,22 @@ public class Interfaz {
             System.out.println("Error al grabar");
         }
     }
-}
-
+   
+    public void borrarSeccion() {
+        Secciones seccion = seleccionarSecciones();
+        superMercado.removeSeccion(seccion);
+        System.out.println("La seccion ha sido borrada con exito");
+    }
+    
+    public void borrarProducto() {
+        Secciones seccion = seleccionarSecciones();
+        System.out.println("Nombre del Producto");
+        String nombre = sc.nextLine();
+        Producto p = new ProductoMedible(nombre);
+        seccion.removeProducto(p);
+        superMercado.removeSeccion(seccion);
+        System.out.println("El producto ha sido borrado con exito");
+    }
+    }
+    
 

@@ -25,7 +25,14 @@ public  class ProductoMedible extends Producto {
       
     }
 
-
+    public ProductoMedible(String nombre){
+        super(nombre);
+    }
+    
+    
+    /** 
+     * @return double
+     */
     public double getMasa(){
         return this.masa;
     }   
@@ -45,7 +52,10 @@ public  class ProductoMedible extends Producto {
     }
 
     public String toString(){
-        return unidad +"" + nombre + " Precio kilo(kg): " + precioKilo + "Peso:(g) "+masa+ " Precio(euros): "+precio()+" "+ fechaCaducidad;
+        if (fechaCaducidad == null) {
+            return super.toString()+ " Precio kilo(kg): " + precioKilo + " Peso:(g) "+masa+"g"+" Precio: "+precio()+"$ ";
+         }else
+            return super.toString()+ " Precio kilo(kg): " + precioKilo + " Peso:(g) "+masa+"g"+" Precio: "+precio()+"$ "+ fechaCaducidad;
     }
 
     public void setFechaCaducidad(LocalDate fechaCaducidad){
@@ -55,6 +65,8 @@ public  class ProductoMedible extends Producto {
     public LocalDate getFechaCaducidad(){
         return this.fechaCaducidad;
     }
+
+    
 
 
 
