@@ -53,4 +53,6 @@ public abstract class Producto {
     public String toString(){
         return "Nombre: "+nombre+" Cantidad: "+unidad;
     }
+
+    public abstract double precio();
 }

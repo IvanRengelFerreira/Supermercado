@@ -44,13 +44,13 @@ public class Interfaz {
           return seccion;
         }
 
-    public boolean anadirProducto(){
+    public boolean addProducto(){
     if (superMercado.size() == 0) {
         System.out.println("No hay secciones disponibles");
         System.out.println("¿Desea añadir una seccion? (si/no)");
         String peticion = sc.nextLine();
         if (peticion.equalsIgnoreCase("si")) {
-            anadirSecciones();
+            addSecciones();
             return true;
         } else if (peticion.equalsIgnoreCase("no")) {
             return false;
@@ -71,17 +71,17 @@ public class Interfaz {
             System.out.println("¿Su producto es medible?");
             peticion = sc.nextLine();
             if (peticion.equalsIgnoreCase("si")) {
-                anadirProductoM();
+                addProductoM();
             } else {
-                anadirProductoP();
+                addProductoP();
             }
         } else if (peticion.equalsIgnoreCase("no")) {
              System.out.println("¿Su producto es medible?");
             peticion = sc.nextLine();
             if (peticion.equalsIgnoreCase("si")) {
-                anadirProducNoP();
+                addProducNoP();
             } else if (peticion.equalsIgnoreCase("no")) {
-                anadirProductoSimp();
+                addProductoSimp();
             }else {
                System.out.println("Peticion erronea");
                return true;
@@ -101,7 +101,7 @@ public class Interfaz {
     return true;
 }
 
-    public void anadirProductoSimp() {
+    public void addProductoSimp() {
         Secciones seccion = seleccionarSecciones();
 
         System.out.println("Nombre del Producto");
@@ -117,7 +117,7 @@ public class Interfaz {
         seccion.addProducto(a);
     }
 
-    public void anadirProductoM() {
+    public void addProductoM() {
         Secciones seccion = seleccionarSecciones();
     
         System.out.println("Nombre del Producto");
@@ -150,7 +150,7 @@ public class Interfaz {
         seccion.addProducto(a);
     }
     
-    public void anadirProducNoP() {
+    public void addProducNoP() {
         Secciones seccion = seleccionarSecciones();
         System.out.println("Nombre del Producto");
         String nombre = sc.nextLine();
@@ -171,7 +171,7 @@ public class Interfaz {
         seccion.addProducto(a);
     }
 
-    public void anadirProductoP() {
+    public void addProductoP() {
 
 
         Secciones seccion = seleccionarSecciones();
@@ -201,23 +201,22 @@ public class Interfaz {
         seccion.addProducto(a);
     }
     
-    public void anadirSecciones() {
+    public void addSecciones() {
         System.out.println("Nombre de la Seccion");
         String nombre = sc.nextLine();
         Secciones s = new Secciones(nombre);
         superMercado.addSeccion(s);
     }
 
-    
     public boolean procesarPeticion(String peticion) {
         String[] p = peticion.trim().split("\\s+");
 
         if (p.length > 0) {
 
             if (p[0].equalsIgnoreCase("1")) {
-                anadirSecciones();
+                addSecciones();
             } else if (p[0].equalsIgnoreCase("2")) {
-                anadirProducto();
+                addProducto();
             }else if (p[0].equalsIgnoreCase("3")) {
                 mostrarSecciones();
             } else if (p[0].equalsIgnoreCase("4")) {

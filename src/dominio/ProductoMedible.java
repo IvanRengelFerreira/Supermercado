@@ -1,7 +1,7 @@
 package dominio;
 import java.time.LocalDate;
 
-public  class ProductoMedible extends Producto {
+public class ProductoMedible extends Producto {
    
     private double masa;
     private double precio;
