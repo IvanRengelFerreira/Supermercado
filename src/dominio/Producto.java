@@ -37,6 +37,10 @@ public abstract class Producto {
         return this.unidad;
     }
 
+    public void setUnidad(int unidad){
+        this.unidad = unidad;
+    }
+
     /**
      * Establece el nombre del producto.
      * @param nombre El nuevo nombre del producto.

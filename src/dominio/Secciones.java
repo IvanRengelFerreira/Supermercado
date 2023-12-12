@@ -70,9 +70,9 @@ public class Secciones {
             return null; 
         }
 
-            
-
-            
+        public int IndexOf(Producto p) {
+            return productos.indexOf(p);
+        }
 
 
     }

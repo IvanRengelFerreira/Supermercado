@@ -41,6 +41,10 @@ public class ProductoMedible extends Producto {
         return precioKilo;
     }
 
+    public void setPrecioKilo(double precioKilo){
+        this.precioKilo = precioKilo;
+    }
+
 
     public void setMasa(double masa){
         this.masa = masa;
