@@ -12,6 +12,7 @@ public class Principal{
         Interfaz interfaz = new Interfaz();
         String peticion;
         interfaz.procesarPeticion("help");
+         interfaz.leer();
         do {
             peticion=interfaz.leerPeticion();
         } while (interfaz.procesarPeticion(peticion));

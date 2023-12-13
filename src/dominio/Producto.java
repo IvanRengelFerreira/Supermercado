@@ -1,9 +1,11 @@
 package dominio;
 
+import java.io.Serializable;
+
 /**
  * Esta es la clase abstracta Producto que contiene los detalles de un producto.
  */
-public abstract class Producto {
+public abstract class Producto implements Serializable {
     protected String nombre;
     protected int unidad;
     

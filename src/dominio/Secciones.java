@@ -1,6 +1,7 @@
 package dominio;
-import java.util.ArrayList; // Add missing import
-public class Secciones {
+import java.util.ArrayList; 
+import java.io.Serializable; 
+public class Secciones implements Serializable {
     
     private String nombre;
     private ArrayList<Producto> productos;

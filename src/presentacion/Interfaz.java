@@ -6,15 +6,25 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 import dominio.*;
-
+/**
+ * Esta es la clase Interfaz que contiene el menu de la aplicacion y la interaccion conn el usuario.
+ *  */ 
 public class Interfaz {
-
+    /**
+     * Esta es la variable superMercado que contiene un supermercado.
+     */
     private SuperMercado superMercado = new SuperMercado("SuperMercado");
-    
+    /**
+     * Esta es la variable sc que contiene un Scanner que usaremos para leer datos.
+     */
     private Scanner sc = new Scanner(System.in);
-
+    /**
+     * Selecciona una seccion del supermercado
+     * @return Seccion seleccionada
+     */
     public Secciones seleccionarSecciones() {
      
         Secciones seccion = null;
@@ -43,7 +53,11 @@ public class Interfaz {
         } 
           return seccion;
         }
-
+/**
+ * Añade un producto al supermercado
+ * @return true si se ha añadido correctamente
+* @return false si no se ha añadido correctamente
+    */
     public boolean addProducto(){
     if (superMercado.size() == 0) {
         System.out.println("No hay secciones disponibles");
@@ -100,7 +114,9 @@ public class Interfaz {
     }
     return true;
 }
-
+/**
+ * Añade un producto simple sin fecha de caducidad y sin unidades de medida al supermercado
+ */
     public void addProductSimp() {
         Secciones seccion = seleccionarSecciones();
 
@@ -116,7 +132,9 @@ public class Interfaz {
         Producto a = new ProductoSimple(nombre, unidad,precio );
         seccion.addProducto(a);
     }
-
+/** 
+ * Añade un producto medible y que tiene fecha de caducidad al supermercado
+ * */
     public void addProductM() {
         Secciones seccion = seleccionarSecciones();
     
@@ -149,7 +167,10 @@ public class Interfaz {
         Producto a = new ProductoMedible(nombre, unidad, precio, masa, fechaCaducidad);
         seccion.addProducto(a);
     }
-    
+/**
+ * Añade un producto  medible y que no tiene fecha de caducidad al supermercado
+ * */
+
     public void addProductNoP() {
         Secciones seccion = seleccionarSecciones();
         System.out.println("Nombre del Producto");
@@ -170,7 +191,9 @@ public class Interfaz {
         Producto a = new ProductoMedible(nombre, unidad, precioKilo,masa);
         seccion.addProducto(a);
     }
-
+/**
+ * Añade un producto perecedero sin unidades de medida al supermercado
+ * */
     public void addProductP() {
 
 
@@ -200,14 +223,36 @@ public class Interfaz {
         Producto a = new ProductoSimple(nombre, unidad, precioUnidad,fechaCaducidad);
         seccion.addProducto(a);
     }
-    
+/**
+ * Añade una seccion al supermercado
+ * */
     public void addSecciones() {
         System.out.println("Nombre de la Seccion");
         String nombre = sc.nextLine();
         Secciones s = new Secciones(nombre);
         superMercado.addSeccion(s);
     }
-
+/**
+ * Muestra el menu de la aplicacion
+ * */
+    public void menu(){
+        System.out.println("--------------------Menu--------------------");
+        System.out.println("1.Añadir Secciones");
+        System.out.println("2.Añadir Producto");
+        System.out.println("3.Mostrar Secciones");
+        System.out.println("4.Borrar seccion");
+        System.out.println("5.Borrar producto");
+        System.out.println("6.Actualizar producto");
+        System.out.println("Para salir de la interfaz escriba 'exit'");
+        System.out.println("Si necesita ayuda en cualquier momento escriba 'help'");
+    
+    }
+/**
+ * Procesa la peticion del usuario
+ * @param peticion Peticion del usuario
+ * @return true si se ha procesado correctamente
+ * @return false si no se ha procesado correctamente
+ * */
     public boolean procesarPeticion(String peticion) {
         String[] p = peticion.trim().split("\\s+");
 
@@ -223,8 +268,10 @@ public class Interfaz {
                 borrarSeccion();
             }else if (p[0].equalsIgnoreCase("5")) {
                 borrarProducto();
+            }else if (p[0].equalsIgnoreCase("6")) {
+                actualizarProducto();
             }else if (p[0].equalsIgnoreCase("help")) {
-                System.out.println("Menu\n1. Añadir Secciones\n2. Añadir Producto\n3. Mostrar Secciones\n4.Borrar seccion \n5.Borrar producto \nPara salir de la interfaz escriba 'exit'\nSi necesita ayuda en cualquier momento escriba 'help'");
+                menu();
             } else if (p[0].equalsIgnoreCase("exit")) {
                 grabar();
                 return false;
@@ -244,11 +291,21 @@ public class Interfaz {
     }
 
     public Interfaz() {
-        File f = new File("Supermercado.txt");
+       leer();
+    }
+
+    public void leer() {
+         File f = new File("Supermercado.dat");
         try {
             ObjectInputStream obj = new ObjectInputStream(new FileInputStream(f));
-            superMercado = (SuperMercado) obj.readObject();
-            obj.close();
+            try {
+                superMercado = (SuperMercado) obj.readObject();
+                obj.close();
+            } catch (Exception e) {
+                System.out.println("Error al leer el fichero");
+                superMercado = new SuperMercado("Mi supermercado");
+            }
+          
         } catch (Exception e) {
             superMercado = new SuperMercado("Mi supermercado");
         }
@@ -259,9 +316,12 @@ public class Interfaz {
         String cadena = sc.nextLine();
         return cadena;
     }
+
+  
+
  
     public void grabar() {
-        File f = new File("SuperMercado.txt");
+        File f = new File("SuperMercado.dat");
         try {
             ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(f));
             obj.writeObject(superMercado);
@@ -288,15 +348,23 @@ public class Interfaz {
     }
 
     public void actualizarProducto(){
-        Secciones seccion = seleccionarSecciones();
+        if (superMercado.size() == 0) {
+            System.out.println("No hay secciones disponibles");
+        }else{
+         Secciones seccion = seleccionarSecciones();
         System.out.println("Nombre del Producto");
         String nombre = sc.nextLine();
         Producto p = seccion.buscarProducto(nombre);
-        actProduct(p);
-        System.out.println("El producto ha sido actualizado con exito");
+            if (p == null) {
+            System.out.println("El producto no existe");
+            }else{
+            menuActualizar(p);
+            System.out.println("El producto ha sido actualizado con exito");
+            }
+        }
     }
 
-    public boolean actProduct(Producto p){
+    public boolean menuActualizar(Producto p){
         System.out.println("¿Que desea cambiar?");
         System.out.println("1.Nombre del producto");
         System.out.println("2.Precio por kilo del Producto");

@@ -1,11 +1,12 @@
 package dominio;
 import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  * Esta es la clase SuperMercado que contiene detalles de un supermercado.
  * Un supermercado tiene un nombre y una lista de secciones.
  */
-public class SuperMercado {
+public class SuperMercado implements Serializable {
     private String nombre;
     private ArrayList<Secciones> secciones;
 

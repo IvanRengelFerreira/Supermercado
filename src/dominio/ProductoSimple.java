@@ -1,12 +1,13 @@
 package dominio;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * Esta es la clase ProductoSimple que extiende la clase Producto.
  * Contiene detalles de un producto simple, incluyendo su precio por unidad y fecha de caducidad.
  */
-public class ProductoSimple extends Producto {
+public class ProductoSimple extends Producto  {
     private double precio;
     private double precioUnidad;
     private LocalDate fechaCaducidad;
