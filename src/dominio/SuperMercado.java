@@ -7,6 +7,7 @@ import java.io.Serializable;
  * Un supermercado tiene un nombre y una lista de secciones.
  */
 public class SuperMercado implements Serializable {
+    // Atributos de la clase SuperMercado
     private String nombre;
     private ArrayList<Secciones> secciones;
 
@@ -93,6 +94,11 @@ public class SuperMercado implements Serializable {
         }
     }
 
+    /**
+     * Busca una sección en el supermercado.
+     * @param nombre El nombre de la sección a buscar.
+     * @return La sección con el nombre especificado.
+     */
     public Secciones buscarSecciones(String nombre) {
         for (Secciones s : secciones) {
             if (s.getNombre().equalsIgnoreCase(nombre)) {

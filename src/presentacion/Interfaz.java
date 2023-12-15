@@ -6,12 +6,40 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 import dominio.*;
 /**
  * Esta es la clase Interfaz que contiene el menu de la aplicacion y la interaccion conn el usuario.
  *  */ 
+/**
+ * Esta clase representa la interfaz de usuario del programa.
+ * Proporciona métodos para leer y procesar datos.
+ * 
+ * El constructor de la clase Interfaz carga los datos del archivo "Supermercado.dat" en el objeto SuperMercado.
+ * Si ocurre algún error al leer el archivo, se crea un nuevo objeto SuperMercado con el nombre "Mi supermercado".
+ * 
+ * La clase Interfaz contiene métodos para realizar diversas operaciones en el supermercado, como añadir secciones y productos,
+ * mostrar las secciones existentes, borrar secciones y productos, actualizar productos, y procesar peticiones del usuario.
+ * 
+ * Además, la clase Interfaz tiene métodos auxiliares para leer y grabar los datos del supermercado en un archivo.
+ * 
+ * Para utilizar la interfaz, se debe crear una instancia de la clase Interfaz y llamar al método menu() para mostrar el menú de opciones.
+ * Luego, se pueden ingresar las peticiones del usuario utilizando el método procesarPeticion().
+ * 
+ * Ejemplo de uso:
+ * 
+ * Interfaz interfaz = new Interfaz();
+ * interfaz.menu();
+ * 
+ * Scanner sc = new Scanner(System.in);
+ * String peticion = sc.nextLine();
+ * 
+ * while (interfaz.procesarPeticion(peticion)) {
+ *     peticion = sc.nextLine();
+ * }
+ * 
+ * Una vez que se ha terminado de utilizar la interfaz, se debe llamar al método grabar() para guardar los datos del supermercado en el archivo.
+ */
 public class Interfaz {
     /**
      * Esta es la variable superMercado que contiene un supermercado.
@@ -55,8 +83,7 @@ public class Interfaz {
         }
 /**
  * Añade un producto al supermercado
- * @return true si se ha añadido correctamente
-* @return false si no se ha añadido correctamente
+ * @return true si se ha añadido correctamente y false para salir del menu
     */
     public boolean addProducto(){
     if (superMercado.size() == 0) {
@@ -250,8 +277,7 @@ public class Interfaz {
 /**
  * Procesa la peticion del usuario
  * @param peticion Peticion del usuario
- * @return true si se ha procesado correctamente
- * @return false si no se ha procesado correctamente
+ * @return true si se ha procesado correctamente y false para salir del menu
  * */
     public boolean procesarPeticion(String peticion) {
         String[] p = peticion.trim().split("\\s+");
@@ -286,14 +312,26 @@ public class Interfaz {
         return true;
     }
 
+    /**
+     * Muestra las secciones del supermercado.
+     */
     public void mostrarSecciones() {
         superMercado.mostrarSecciones();
     }
 
+    /**
+     * Esta clase representa la interfaz de usuario del programa.
+     * Proporciona métodos para leer y procesar datos.
+     * Constructor de la clase Interfaz.
+     */
     public Interfaz() {
        leer();
     }
 
+    /**
+     * Lee los datos de un archivo llamado "Supermercado.dat" y carga la información en el objeto SuperMercado.
+     * Si ocurre algún error al leer el archivo, se crea un nuevo objeto SuperMercado con el nombre "Mi supermercado".
+     */
     public void leer() {
          File f = new File("Supermercado.dat");
         try {
@@ -310,16 +348,22 @@ public class Interfaz {
             superMercado = new SuperMercado("Mi supermercado");
         }
     }
-        
+    
+    /**
+     * Lee una petición ingresada por el usuario.
+     * 
+     * @return la cadena de texto ingresada por el usuario.
+     */
     public String leerPeticion() {
         System.out.print("?>");
         String cadena = sc.nextLine();
         return cadena;
     }
-
-  
-
- 
+    
+    /**
+     * Guarda los datos del supermercado en un archivo llamado "SuperMercado.dat".
+     * Si ocurre algún error al grabar el archivo, muestra un mensaje de error.
+     */
     public void grabar() {
         File f = new File("SuperMercado.dat");
         try {
@@ -332,12 +376,18 @@ public class Interfaz {
         }
     }
    
+    /**
+     * Borra una sección del supermercado.
+     */
     public void borrarSeccion() {
         Secciones seccion = seleccionarSecciones();
         superMercado.removeSeccion(seccion);
         System.out.println("La seccion ha sido borrada con exito");
     }
     
+    /**
+     * Borra un producto de la sección seleccionada.
+     */
     public void borrarProducto() {
         Secciones seccion = seleccionarSecciones();
         System.out.println("Nombre del Producto");
@@ -347,6 +397,14 @@ public class Interfaz {
         System.out.println("El producto ha sido borrado con exito");
     }
 
+    /**
+     * Actualiza un producto existente en el supermercado.
+     * Si no hay secciones disponibles, muestra un mensaje de error.
+     * Solicita al usuario seleccionar una sección y el nombre del producto a actualizar.
+     * Si el producto no existe, muestra un mensaje de error.
+     * Si el producto existe, muestra un menú de opciones para actualizar sus atributos.
+     * Muestra un mensaje de éxito al finalizar la actualización del producto.
+     */
     public void actualizarProducto(){
         if (superMercado.size() == 0) {
             System.out.println("No hay secciones disponibles");
@@ -364,6 +422,12 @@ public class Interfaz {
         }
     }
 
+    /**
+     * Muestra un menú de opciones para actualizar los atributos de un producto.
+     * 
+     * @param p el producto a actualizar
+     * @return true si se realizó alguna actualización, false si se seleccionó salir sin realizar cambios
+     */
     public boolean menuActualizar(Producto p){
         System.out.println("¿Que desea cambiar?");
         System.out.println("1.Nombre del producto");

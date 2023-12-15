@@ -25,7 +25,6 @@ limpiar:
 javadoc:compilar
 	find . -type f -name "*.java" | xargs javadoc -d $(DOC_DIR) -encoding utf-8 -docencoding utf-8 -charset utf-8
 debug: compilar
-
 	find $(SRC_DIR) -name *.java | xargs javac -g -cp $(OUT_DIR):$(LIB_DIR) -d $(OUT_DIR)
 	cd bin; jdb -sourcepath ../src
 runjar: jar	

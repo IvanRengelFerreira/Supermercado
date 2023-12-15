@@ -1,6 +1,5 @@
 package dominio;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -8,6 +7,7 @@ import java.time.LocalDate;
  * Contiene detalles de un producto simple, incluyendo su precio por unidad y fecha de caducidad.
  */
 public class ProductoSimple extends Producto  {
+    // Atributos de la clase ProductoSimple
     private double precio;
     private double precioUnidad;
     private LocalDate fechaCaducidad;
@@ -65,6 +65,7 @@ public class ProductoSimple extends Producto  {
      * Devuelve una representación en cadena del producto.
      * @return Una cadena que representa el producto.
      */
+    @Override
     public String toString() {
         if (fechaCaducidad == null) {
             return super.toString()+ " Precio: " + precio() + " Precio por unidad: " + precioUnidad;
