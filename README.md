@@ -7,6 +7,7 @@
 -[Uso](#uso)
 -[Ejemplos](#ejemplos)
 -[Contribuciones](#contribuciones)
+-[Estructura](#estructura)
 -[Licencias](#licencias)
 
 ## Instalacion
