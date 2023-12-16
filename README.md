@@ -1,4 +1,4 @@
-# proyectoFinal
+# Supermercado
 ## Este es mi proyecto de programacion 1. En este programa se puede manejar el inventario de un supermecado. Este almacena productos segun sus caracteristicas y los guarda en secciones. Su uso mejora mucho el manejo de inventarios y ademas ayuda con el calculo de precio de cada producto.
 
 ## Tabla de Contenidos
@@ -67,6 +67,10 @@ Asi se añade un producto.
 ## Contribuciones
 
 Se puede ayudar a este codigo solucionando errores cuando se lee entradas por pantalla. Hay veces que si pones un tipo diferente al que te pide se ejecutara un error.
+
+## Estructura
+
+La estructura de este programa se puede vizualizar en la imagen png que esta dentro de este proyecto. Se muestra el diseño a traves de un diagrama UML. [UML](UML.png)
 
 ## Licencias
 
